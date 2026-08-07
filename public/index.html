@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Craft Strike — FPS Multiplayer</title>
+  <link rel="stylesheet" href="style.css">
+  <script type="importmap">
+    { "imports": { "three": "./vendor/three.module.min.js" } }
+  </script>
+</head>
+<body>
+  <canvas id="game-canvas"></canvas>
+
+  <!-- ============ TELA DE ENTRADA ============ -->
+  <div id="menu">
+    <div class="menu-bg"></div>
+    <div class="menu-card">
+      <div class="logo">
+        <div class="logo-block"><span></span><span></span><span></span><span></span></div>
+        <h1>CRAFT<span>STRIKE</span></h1>
+        <p class="tagline">FPS MULTIPLAYER · MODO FFA · RESPAWN INFINITO</p>
+      </div>
+
+      <div class="join-box">
+        <label class="field">
+          <span>Apelido</span>
+          <input id="nickname" type="text" maxlength="16" placeholder="Seu nick" autocomplete="off">
+        </label>
+        <div class="field">
+          <span>Sua cor</span>
+          <div id="color-picker" class="color-picker"></div>
+        </div>
+        <button id="join-btn" class="btn-join">
+          <svg viewBox="0 0 24 24"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg>
+          ENTRAR NA PARTIDA
+        </button>
+        <div id="server-status" class="server-status">conectando ao servidor…</div>
+      </div>
+
+      <div class="controls-help">
+        <div><b>WASD</b> mover</div><div><b>Mouse</b> mirar</div><div><b>Botão esq</b> atirar</div>
+        <div><b>Botão dir</b> mira / facada</div><div><b>Espaço</b> pular</div><div><b>R</b> recarregar</div>
+        <div><b>1-4 / roda</b> armas</div><div><b>Tab</b> placar</div><div><b>Enter</b> chat</div>
+        <div><b>M</b> som</div><div><b>Esc</b> menu</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ HUD ============ -->
+  <div id="hud" class="hidden">
+    <!-- crosshair -->
+    <div id="crosshair">
+      <span class="ch-dot"></span>
+      <span class="ch-l"></span><span class="ch-r"></span><span class="ch-u"></span><span class="ch-d"></span>
+    </div>
+
+    <!-- info topo esquerdo -->
+    <div id="top-left">
+      <div id="kills-deaths"></div>
+      <div id="streak-chip" class="hidden"></div>
+    </div>
+
+    <!-- info topo direito -->
+    <div id="top-right">
+      <div id="ping" class="stat">PING --</div>
+      <div id="fps" class="stat">FPS --</div>
+    </div>
+
+    <!-- kill feed topo direito -->
+    <div id="killfeed"></div>
+
+    <!-- leader -->
+    <div id="leader"></div>
+
+    <!-- mira -->
+    <div id="scope-overlay" class="hidden"><div class="scope-circle"></div></div>
+
+    <!-- vida -->
+    <div id="health-wrap">
+      <div id="health-label"><span id="hp-val">100</span> HP</div>
+      <div id="health-bar"><div id="health-fill"></div></div>
+    </div>
+
+    <!-- armas -->
+    <div id="weapon-hud">
+      <div id="weapon-name">AK-47</div>
+      <div id="ammo"><span id="ammo-mag">30</span><span class="ammo-sep">/</span><span id="ammo-res">90</span></div>
+      <div id="weapon-slots">
+        <span class="wslot" data-w="ak47"><b>1</b>AK</span>
+        <span class="wslot" data-w="awp"><b>2</b>AWP</span>
+        <span class="wslot" data-w="deagle"><b>3</b>DE</span>
+        <span class="wslot" data-w="knife"><b>4</b>K</span>
+      </div>
+    </div>
+
+    <!-- dano -->
+    <div id="damage-vignette"></div>
+    <div id="hitmarker"></div>
+  </div>
+
+  <!-- placar -->
+  <div id="scoreboard" class="hidden">
+    <div class="sb-title">PLACAR — TODOS CONTRA TODOS</div>
+    <table>
+      <thead><tr><th>#</th><th>Jogador</th><th>Abates</th><th>Mortes</th><th>K/D</th><th>Ping</th></tr></thead>
+      <tbody id="sb-body"></tbody>
+    </table>
+  </div>
+
+  <!-- chat -->
+  <div id="chat-wrap">
+    <div id="chat-log"></div>
+    <input id="chat-input" type="text" maxlength="120" placeholder="Mensagem (Enter)" autocomplete="off" class="hidden">
+  </div>
+
+  <!-- morte -->
+  <div id="death-screen" class="hidden">
+    <div class="death-title">VOCÊ MORREU</div>
+    <div id="death-by"></div>
+    <div id="death-timer">Respawn em <b>2.5</b>s</div>
+    <button id="respawn-now" class="hidden">REAPARECER AGORA</button>
+  </div>
+
+  <!-- banner central -->
+  <div id="banner" class="hidden"><div id="banner-title"></div><div id="banner-sub"></div></div>
+
+  <!-- nametags projetadas -->
+  <div id="names-layer"></div>
+
+  <!-- desconexão -->
+  <div id="conn-overlay" class="hidden">
+    <div class="conn-box">
+      <div class="conn-title">CONEXÃO PERDIDA</div>
+      <div id="conn-msg">Tentando reconectar…</div>
+      <button id="reconnect-btn">RECONECTAR</button>
+    </div>
+  </div>
+
+  <!-- hint de clique -->
+  <div id="click-hint" class="hidden">clique para jogar</div>
+
+  <script type="module" src="./js/main.js"></script>
+</body>
+</html>

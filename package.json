@@ -1,0 +1,18 @@
+{
+  "name": "craft-strike",
+  "version": "1.0.0",
+  "description": "Craft Strike — FPS multiplayer 3D estilo Valorant/CS com visuais Minecraft, Node.js + WebSockets + Three.js",
+  "type": "module",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/entry.js",
+    "test": "node test/server.test.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "ws": "^8.18.0"
+  },
+  "license": "MIT"
+}
